@@ -29,6 +29,9 @@ public class Main {
         MathBox mathBox2 = new MathBox(array);
 
         System.out.println(mathBox.equals(mathBox2));
+        mathBox2.deleteElement(99);
+        System.out.println(mathBox.equals(mathBox2));
+
         System.out.println(mathBox.hashCode());
         System.out.println(mathBox.hashCode());
 

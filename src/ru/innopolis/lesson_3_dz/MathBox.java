@@ -4,12 +4,11 @@ import java.util.*;
 
 public class MathBox {
 
-    private HashSet<Integer> set;
+    private TreeSet<Integer> set;
 
     public MathBox(Integer[] inputArray) {
         ArrayList<Integer> integerArrayList = new ArrayList(Arrays.asList(inputArray));
-        Collections.sort(integerArrayList);
-        set = new HashSet<>(integerArrayList);
+        set = new TreeSet<>(integerArrayList);
     }
 
     public int summator() {
