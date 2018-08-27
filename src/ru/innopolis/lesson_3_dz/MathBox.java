@@ -1,25 +1,31 @@
 package ru.innopolis.lesson_3_dz;
 
+import ru.innopolis.lesson_4_dz.MyException;
+
 import java.util.*;
 
 public class MathBox {
 
     private TreeSet<Integer> set;
 
-    public MathBox(Integer[] inputArray) {
-        ArrayList<Integer> integerArrayList = new ArrayList(Arrays.asList(inputArray));
-        set = new TreeSet<>(integerArrayList);
+    protected TreeSet<Integer> getSet() {
+        return set;
     }
 
-    public int summator() {
+    public MathBox(Integer[] inputArray) {
+        ArrayList<Integer> numbersArrayList = new ArrayList(Arrays.asList(inputArray));
+        set = new TreeSet<>(numbersArrayList);
+    }
+
+    public int summator() throws MyException {
         int sum = 0;
-        for (int i: set){
-            sum += i;
+        for (Integer i: set){
+             sum =+ i;
         }
         return sum;
     }
 
-    public Collection <Integer> splitter(int div){
+    public Collection <Integer> splitter(int div) throws MyException {
 
         ArrayList list = new ArrayList();
         for (Integer i : set){
@@ -46,7 +52,7 @@ public class MathBox {
     public String toString() {
 
         StringBuilder stringBuilder = new StringBuilder("Содержимое класса MathBox: [");
-        for (int i: set){
+        for (Integer i: set){
             stringBuilder.append(i + ", ");
         }
         stringBuilder.delete(stringBuilder.length()-2,stringBuilder.length());
@@ -54,7 +60,7 @@ public class MathBox {
         return stringBuilder.toString();
     }
 
-    public boolean deleteElement(Integer i){
+    public boolean deleteElement(Integer i) throws MyException {
         return set.remove(i);
     }
 
