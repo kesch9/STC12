@@ -20,7 +20,7 @@ public class MathBox {
     public int summator() throws MyException {
         int sum = 0;
         for (Integer i: set){
-             sum =+ i;
+             sum += i;
         }
         return sum;
     }

@@ -33,15 +33,19 @@ public class ObjectBox extends MathBox {
 
     private Boolean notNumber = false;
 
+    public ArrayList<Object> getArrayList() {
+        return arrayList;
+    }
+
     public ObjectBox(Integer[] inputArray) {
         super(inputArray);
-        arrayList = new ArrayList<>(super.getSet());
+        arrayList = new ArrayList<Object>(super.getSet());
     }
 
 
     public void addObject (Object o){
         if (o instanceof Number) {
-            super.getSet().add((Integer) o);
+            super.getSet().add(((Integer) o).intValue());
         } else {
             notNumber = true;
         }
@@ -53,7 +57,7 @@ public class ObjectBox extends MathBox {
             super.getSet().remove(o);
         }
         arrayList.remove(o);
-        if (arrayList.equals(super.getSet())){
+        if (arrayList.equals(new ArrayList<Object>(super.getSet()))){
             notNumber = false;
         }
     }
@@ -74,7 +78,14 @@ public class ObjectBox extends MathBox {
         if (notNumber) {
             throw new MyException();
         }
-        return super.summator();
+        if (arrayList.equals(new ArrayList<Object>(super.getSet()))){
+            return super.summator();}
+        int sum = 0;
+        for ( Object i: arrayList){
+            sum += (Integer)i;
+        }
+        return sum;
+
     }
 
     @Override
@@ -82,7 +93,13 @@ public class ObjectBox extends MathBox {
         if (notNumber) {
             throw new MyException();
         }
-        return super.splitter(div);
+        if (arrayList.equals(new ArrayList<Object>(super.getSet()))){
+            return super.splitter(div);}
+        ArrayList <Integer>list = new ArrayList();
+        for (Object i : arrayList){
+            list.add((Integer) i/div);
+        }
+        return list;
     }
 
     @Override
@@ -90,6 +107,9 @@ public class ObjectBox extends MathBox {
         if (notNumber) {
             throw new MyException();
         }
-        return super.deleteElement(i);
+        if (arrayList.equals(new ArrayList<Object>(super.getSet()))){
+            return super.deleteElement(i);}
+            deleteObject(i);
+        return true;
     }
 }
