@@ -10,6 +10,7 @@ public class ObjectExample {
         String fileName = "people.dat";
         ArrayList<Person> personArrayList = new ArrayList<Person>();
         personArrayList.add(new Person("Tom",35,1.3,true));
+        personArrayList.add(new Person("Rate",35,1.3,true));
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(fileName))){
             objectOutputStream.writeObject(personArrayList);
         } catch (FileNotFoundException e) {

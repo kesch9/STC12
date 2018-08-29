@@ -16,13 +16,14 @@
 
 package ru.innopolis.lesson_5_dz;
 
-import java.io.Serializable;
+import java.io.*;
+import java.util.Objects;
 
-public class Employee implements Serializable {
+public class Employee implements Serializable, Externalizable {
 
     private String name;
     private int age;
-    private int salary;
+    private long salary;
     private String job;
 
     public Employee() {
@@ -51,11 +52,11 @@ public class Employee implements Serializable {
         this.age = age;
     }
 
-    public int getSalary() {
+    public long getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(long salary) {
         this.salary = salary;
     }
 
@@ -68,5 +69,41 @@ public class Employee implements Serializable {
     }
 
 
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeUTF(name);
+        out.write(age);
+        out.writeLong(salary);
+        out.writeUTF(job);
+    }
 
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        name = in.readUTF();
+        age = in.read();
+        salary = in.readLong();
+        job = in.readUTF();
+    }
+
+    @Override
+    public String toString() {
+        return new String("Employee name " + name + " age " +
+                age + " salary " + salary + " job " + job);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return age == employee.age &&
+                salary == employee.salary &&
+                Objects.equals(name, employee.name) &&
+                Objects.equals(job, employee.job);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age, salary, job);
+    }
 }
