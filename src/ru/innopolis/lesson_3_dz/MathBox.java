@@ -1,10 +1,13 @@
 package ru.innopolis.lesson_3_dz;
 
 import ru.innopolis.lesson_4_dz.MyException;
+import ru.innopolis.lesson_7_dz.ClearData;
+import ru.innopolis.lesson_7_dz.Logged;
+import ru.innopolis.lesson_7_dz.MathBoxInterface;
 
 import java.util.*;
 
-public class MathBox {
+public class MathBox implements MathBoxInterface {
 
     private TreeSet<Integer> set;
 
@@ -16,7 +19,8 @@ public class MathBox {
         ArrayList<Integer> numbersArrayList = new ArrayList(Arrays.asList(inputArray));
         set = new TreeSet<>(numbersArrayList);
     }
-
+    @Logged
+    @ClearData
     public int summator() throws MyException {
         int sum = 0;
         for (Integer i: set){
@@ -24,7 +28,8 @@ public class MathBox {
         }
         return sum;
     }
-
+    @Logged
+    @ClearData
     public Collection <Integer> splitter(int div) throws MyException {
 
         ArrayList list = new ArrayList();
@@ -33,7 +38,6 @@ public class MathBox {
         }
         return list;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -59,7 +63,8 @@ public class MathBox {
         stringBuilder.append("]");
         return stringBuilder.toString();
     }
-
+    @Logged
+    @ClearData
     public boolean deleteElement(Integer i) throws MyException {
         return set.remove(i);
     }
