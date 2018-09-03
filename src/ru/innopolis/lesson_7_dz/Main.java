@@ -13,7 +13,7 @@ public class Main {
         MathBoxInterface realMathBox = new MathBox(new Integer[]{1,2,3,5});
         MathBoxInterface mathBoxProxy = (MathBoxInterface) Proxy.newProxyInstance(MathBoxInvocationHandler.class.getClassLoader(),
                 new Class[]{MathBoxInterface.class}, new MathBoxInvocationHandler(realMathBox));
-        mathBoxProxy.summator();
+        System.out.println(mathBoxProxy.summator());
     }
 
 }
