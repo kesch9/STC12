@@ -18,8 +18,11 @@
 package ru.innopolis.lesson_7_dz;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class MathBoxInvocationHandler implements InvocationHandler {
 
@@ -31,13 +34,23 @@ public class MathBoxInvocationHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        Class clazz = mathBox.getClass();
         for (Annotation annotation: method.getAnnotations()){
-            System.out.println(annotation.annotationType().getName());
-            if (annotation.annotationType().getName() == "Logged"){
-                System.out.println("Log complete in " + System.currentTimeMillis() + " ms");
+            if (annotation.annotationType().getCanonicalName().contains("Logged")){
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS", Locale.US);
+                GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("Europe/Moscow"));
+                calendar.setTimeInMillis(System.currentTimeMillis());
+                System.out.println("Log complete in " + simpleDateFormat.format(calendar.getTime()) + " ms." + " Method is name " + method.getName());
+
+            }
+            if (annotation.annotationType().getCanonicalName().contains("ClearData")){
+                Field field = clazz.getDeclaredField("set");
+                field.setAccessible(true);
+                TreeSet<Integer> setZero = new TreeSet<>();
+                setZero.add(0);
+                field.set(mathBox,setZero);
             }
         }
-
         return method.invoke(mathBox,args);
     }
 }
