@@ -8,35 +8,51 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class HumanLoader extends ClassLoader {
+
     public HumanLoader(ClassLoader parent) {
         super(parent);
+    }
+
+    private String pathClass = "ru.innopolis.lesson_8_online_classloaders.classloaders2.EuropeanHuman";
+    private String dest = "file:C//tmp/EuropeanHuman.class";
+
+    public void setPathClass(String pathClass) {
+        this.pathClass = pathClass;
+    }
+
+    public void setDest(String dest) {
+        this.dest = dest;
     }
 
     @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
 
-        if (name.equals("ru.innopolis.lesson_8_online_classloaders.classloaders2.EuropeanHuman")){
-            String dest = "file:C//tmp/EuropeanHuman.class";
-            byte[]classData = null;
-            try {
-                URL url = new URL(dest);
-                URLConnection urlConnection = url.openConnection();
-                InputStream inputStream = urlConnection.getInputStream();
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                int data = inputStream.read();
-                while (data != -1){
-                    byteArrayOutputStream.write(data);
-                    data = inputStream.read();
-                }
-                inputStream.close();
-                classData = byteArrayOutputStream.toByteArray();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (name.equals(pathClass)){
+            byte[]classData = readClassFromDest(dest);
             return defineClass(name,classData,0,classData.length);
         }
         return super.loadClass(name);
+    }
+
+    private byte[] readClassFromDest(String dest){
+        byte[]classData = null;
+        try {
+            URL url = new URL(dest);
+            URLConnection urlConnection = url.openConnection();
+            InputStream inputStream = urlConnection.getInputStream();
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            int data = inputStream.read();
+            while (data != -1){
+                byteArrayOutputStream.write(data);
+                data = inputStream.read();
+            }
+            inputStream.close();
+            classData = byteArrayOutputStream.toByteArray();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return classData;
     }
 }
