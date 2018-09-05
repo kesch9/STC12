@@ -1,4 +1,4 @@
-package ru.innopolis.lesson_8_online_classloaders.classloaders2;
+package ru.innopolis.lesson_8_dz;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -7,14 +7,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class HumanLoader extends ClassLoader {
+public class ObjectLoader extends ClassLoader {
 
-    public HumanLoader(ClassLoader parent) {
-        super(parent);
+    private String pathClass = "TestClass";
+    private String dest = "/home/sergej/IdeaProjects/STC12/Sergej.class";
+
+    public ObjectLoader() {
     }
-
-    private String pathClass = "ru.innopolis.lesson_8_online_classloaders.classloaders2.EuropeanHuman";
-    private String dest = "file:C//tmp/EuropeanHuman.class";
 
     public void setPathClass(String pathClass) {
         this.pathClass = pathClass;
@@ -27,6 +26,7 @@ public class HumanLoader extends ClassLoader {
     @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
 
+        System.out.println("Object Load");
         if (name.equals(pathClass)){
             byte[]classData = readClassFromDest(dest);
             return defineClass(name,classData,0,classData.length);
@@ -55,5 +55,4 @@ public class HumanLoader extends ClassLoader {
         }
         return classData;
     }
-
 }
