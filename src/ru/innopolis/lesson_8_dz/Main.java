@@ -13,7 +13,7 @@ public class Main {
         executorImplements.execute(codeTest);
         ClassLoader parentClassLoader = Main.class.getClassLoader();
         System.out.println(parentClassLoader);
-        Class testClass = parentClassLoader.loadClass("TestClass");
+        Class testClass = parentClassLoader.loadClass("Main");
         Object test = testClass.newInstance();
         System.out.println(test.getClass());
     }
