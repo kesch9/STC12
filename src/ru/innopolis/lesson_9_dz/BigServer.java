@@ -26,7 +26,7 @@ public class BigServer {
             if (message.equals("New Port")){
                 ServerThread serverThread = new ServerThread(3998);
                 threadpool.submit(serverThread);
-                System.out.println("Send Client new Port");
+                System.out.println("Send ChatClient new Port");
                 clientWriter.write("3998");
                 clientWriter.newLine();
                 clientWriter.flush();

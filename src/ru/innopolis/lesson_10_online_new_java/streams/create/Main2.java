@@ -12,8 +12,8 @@ public class Main2 {
 
         Collection<String> strings = Arrays.asList("a1","b2","c3","a1","b3","c3");
 
-//        List<String> distinct = syrings.stream().distinct().collect(Collectors.toList());
-//        System.out.println(distinct);
+        List<String> distinct = strings.stream().distinct().collect(Collectors.toList());
+        System.out.println(distinct);
 
 //        String[] array = strings.stream().distinct().map(String::toUpperCase).toArray(String[]::new);
 //        System.out.println(Arrays.asList(array));
